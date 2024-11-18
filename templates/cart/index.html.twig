@@ -1,0 +1,30 @@
+{% extends 'main.html.twig' %}
+
+{% block title %}Your cart{% endblock %}
+
+{% block styles %}
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ asset('css/cartStyles.css') }}">
+{% endblock %}
+{% block content %}
+    <div id="cart_container">
+    {% for item in cartList %}
+        <div class="product">
+            <div class="product_info">
+                <h3 class="product_name">{{ item.product.name }}</h3>
+                <p class="price">Price: ${{ item.product.price * item.quantity}}</p>
+                <p class="quantity">Quantity: {{ item.quantity }}</p>
+            </div>
+        </div>
+    {% endfor %}
+    </div>
+    <div class="btn_container">
+        <input type="submit" value="clear" id="clear_btn" onclick="clearCart(event)">
+        <input type="submit" value="order" id="order_btn" >
+    </div>
+    <div id="message" style="display: none;"></div>
+    {% block scripts %}
+        <script src="{{ asset("scripts/clearCart.js") }}"></script>
+        <script src="{{ asset("scripts/makeOrder.js") }}"></script>
+    {% endblock%}
+{% endblock %}

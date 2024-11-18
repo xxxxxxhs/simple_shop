@@ -1,0 +1,26 @@
+{% extends 'main.html.twig' %}
+
+{% block title %}{{ product.name }}{% endblock %}
+
+{% block styles %}
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ asset("css/product.css") }}">
+{% endblock %}
+{% block content %}
+    <div class="product_card">
+        <div class="product_info">
+            <h2>{{ product.name }}</h2>
+            <p>{{ product.description }}</p>
+            <p id="price">${{ product.price }}</p>
+            <p>in stock: {{ product.stock }}</p>
+            <input type="submit" name="addToCart" value="add to cart" id="to_cart_btn" onclick="addToCart(event, {{ product.id }})">
+        </div>
+        <div id="pic_card"><img src="{{ asset(product.image) }}" alt="{{ product.name }}" id="product_pic"></div>
+    </div>
+    <div id="message" style="display: none;"></div>
+    {% block scripts %}
+        <script src="{{ asset("scripts/addToCart.js") }}">
+        </script>
+    {% endblock %}
+{% endblock %}
+

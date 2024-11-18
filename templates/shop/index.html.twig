@@ -1,0 +1,39 @@
+{% extends 'main.html.twig' %}
+
+{% block title %}Shop{% endblock %}
+{%block styles %}
+    {{parent()}}
+    <link rel="stylesheet" href="{{ asset("css/home.css") }}">
+{% endblock %}
+
+{% block content %}
+
+    <h1 id="cat_sign">Catalogue</h1>
+
+    <div class="products_grid">
+        {% for product in products %}
+            <div class="product_slip">
+                <h2>{{ product.name }}</h2>
+                <p>{{ product.description|slice(0, 50) ~ '...' }}</p>
+                <p><strong>Цена:</strong> ${{ product.price }}</p>
+                <a href="{{ path('app_one_product', {id: product.id}) }}">View Product</a>
+            </div>
+        {% endfor %}
+    </div>
+
+    <div class="pagination">
+        {% if currentPage > 1 %}
+            <a href="{{ path('app_shop', { page: currentPage - 1 }) }}">Previous</a>
+        {% endif %}
+
+        {% for i in 1..totalPages %}
+            <a href="{{ path('app_shop', { page: i }) }}"
+               class="{% if i == currentPage %}active{% endif %}">{{ i }}</a>
+        {% endfor %}
+
+        {% if currentPage < totalPages %}
+            <a href="{{ path('app_shop', { page: currentPage + 1 }) }}">Next</a>
+        {% endif %}
+    </div>
+
+{% endblock %}
